@@ -24,7 +24,17 @@ public class WorkPlaceServiceImpl implements WorkPlaceService {
         workPlaceRepository.save(workPlace);
     }
 
+    @Override
+    public void deleteWorkPlace(Integer id) {
+        workPlaceRepository.delete(id);
+    }
+
+    @Override
+    public void updateIsCurrent(Integer workbook_id) {
+//        workPlaceRepository.updateIsCurrent(false, workbook_id);
+    }
+
     public void test(){
-//        workPlaceRepository.fin
+//        workPlaceRepository.updatcountry(5, "kuxniq");
     }
 }

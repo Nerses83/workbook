@@ -33,6 +33,17 @@ public class WorkPlace {
     @Column(name = "isCurrent")
     private boolean isCurrent;
 
+//    public int getWorkbook_id() {
+//        return workbook_id;
+//    }
+
+//    public void setWorkbook_id(int workbook_id) {
+//        this.workbook_id = workbook_id;
+//    }
+//
+//    @Column(name = "workbook_id")
+//    private int workbook_id;
+
     @ManyToOne
     @JoinColumn(name="workbook_id", nullable=false)
     @JsonBackReference
@@ -78,11 +89,26 @@ public class WorkPlace {
         this.endDate = endDate;
     }
 
+    public void setWorkBook(WorkBook workBook) {
+        this.workBook = workBook;
+    }
+
     public boolean isCurrent() {
         return isCurrent;
     }
 
     public void setCurrent(boolean current) {
         isCurrent = current;
+    }
+
+    public WorkPlace() {
+    }
+
+    public WorkPlace(String company, String country, Date startDate, Date endDate, boolean isCurrent) {
+        this.company = company;
+        this.country = country;
+        this.startDate = startDate;
+        this.endDate = endDate;
+        this.isCurrent = isCurrent;
     }
 }

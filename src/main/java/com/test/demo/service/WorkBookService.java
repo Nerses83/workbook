@@ -17,4 +17,5 @@ public interface WorkBookService {
 
     WorkBook getWorkBookById(Integer id);
     void updateWorkBook(WorkBook workBook);
+    void deleteWorkBook(Integer id);
 }

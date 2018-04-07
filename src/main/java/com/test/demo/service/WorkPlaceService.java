@@ -11,4 +11,7 @@ import com.test.demo.entity.WorkPlace;
  */
 public interface WorkPlaceService {
     void saveWorkPlace(WorkPlace workPlace);
+    void deleteWorkPlace(Integer id);
+    void updateIsCurrent(Integer workbook_id);
+    void test();
 }

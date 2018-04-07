@@ -80,6 +80,12 @@ public class WorkBookController {
         return "redirect:/";
     }
 
+    @GetMapping("/delete/{id}")
+    public String delete(@PathVariable Integer id) {
+        workBookService.deleteWorkBook(id);
+        return "redirect:/";
+    }
+
 
     public Date convertStringToDate(String dateString)
     {

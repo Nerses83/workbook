@@ -19,6 +19,7 @@ import java.util.Set;
 @Entity
 @Table(name = "work_book")
 public class WorkBook {
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;

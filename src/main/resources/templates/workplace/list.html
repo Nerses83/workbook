@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<!--suppress ALL -->
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<div th:fragment="WorkBook">
+    <div >
+        <p th:text="${workBook.firstName}"></p>
+        <p th:text="${workBook.lastName}"></p>
+
+
+        <!--<a th:href="@{'/category/edit/' + ${workBook.id} + '/'+${workBook.id}}">view</a>-->
+        <a th:href="@{'/workbook/add/' + ${workBook.id}}">New</a>
+    </div>
+    <table class="table table-bordered table-hover horizontal-align">
+        <thead>
+        <tr>
+            <th style="width: 5%">#</th>
+            <th style="width: 20%">Company</th>
+            <th style="width: 20%">Country</th>
+            <th style="width: 20%">Start Date</th>
+            <th style="width: 20%">End Date</th>
+            <th style="width: 5%">Current</th>
+
+
+            <th style="width: 5%">Edit</th>
+            <th style="width: 5%">Delete</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="workPlaces : ${workplace}">
+            <td th:text="${workPlaces.id}" style="text-align: center">#</td>
+            <td th:text="${workPlaces.company}" style="text-align: center">#</td>
+            <td th:text="${workPlaces.country}" style="text-align: center">#</td>
+            <td th:text="${#dates.format(workPlaces.startDate, 'dd MMM yyyy')}" style="text-align: center">Date</td>
+            <td th:text="${#dates.format(workPlaces.endDate, 'dd MMM yyyy')}" style="text-align: center">Date</td>
+
+            <!--<td th:text="${workPlaces.startDate}" style="text-align: center">#</td>-->
+            <!--<td th:text="${workPlaces.endDate}" style="text-align: center">#</td>-->
+
+            <td style="text-align: center">
+                <i th:if="${workPlaces.current} == true" class="fa fa-plus-square-o" style="font-size:20px;color:#337ab7"></i>
+                <i th:if="${workPlaces.current} == false" class="fa fa-minus-square-o" style="font-size:20px;color:#337ab7"></i>
+            </td>
+            <!--<td th:text="${workPlaces.current}" style="text-align: center">#</td>-->
+
+
+            <td style="text-align: center"><a th:href="@{'/workplace/edit/{id}'(id=${workPlaces.id})}"><i class="fa fa-edit" style="font-size:20px"></i></a></td>
+            <!--<td style="text-align: center"><a th:href="@{'/workplace/delete/{id}'(id=${workPlaces.id})}"   ><i class="fa fa-trash" style="font-size:20px"></i></a></td>-->
+            <td style="text-align: center"><a th:href="@{'/workplace/delete/' + ${workPlaces.id} + '/'+${workBook.id}}"><i class="fa fa-trash" style="font-size:20px"></i></a></td>
+
+        </tr>
+        </tbody>
+    </table>
+</div>
+</html>

@@ -49,4 +49,9 @@ public class WorkBookServiceImpl implements WorkBookService{
     public void updateWorkBook(WorkBook workBook) {
         workBookRepository.save(workBook);
     }
+
+    @Override
+    public void deleteWorkBook(Integer id) {
+        workBookRepository.delete(id);
+    }
 }

@@ -2,7 +2,11 @@ package com.test.demo.repository;
 
 import com.test.demo.entity.WorkPlace;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * Created with IntelliJ IDEA.
@@ -13,5 +17,20 @@ import org.springframework.stereotype.Repository;
  */
 //@Repository
 public interface WorkPlaceRepository extends JpaRepository<WorkPlace, Integer> {
+
+//    @Modifying(clearAutomatically = true)
+//    @Query("UPDATE cu c SET c.address = :address WHERE c.id = :companyId")
+//    int updateAddress(@Param("companyId") int companyId, @Param("address") String address);
+
+//    @Modifying
+//    @Query("Update WorkPlace t SET t.current=:isCurrent WHERE t.id=:id")
+//    int updateIsCurrent(@Param("isCurrent") boolean isCurrent, @Param("id") Integer id);
+
+
+//    @Transactional
+//    @Modifying
+//    @Query("UPDATE WorkPlace c SET c.country = :country WHERE c.id = :id")
+//    int updatcountry(@Param("id") int id, @Param("country") String country);
+
 
 }
