@@ -7,6 +7,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import javax.persistence.*;
 import java.util.Date;
 import java.util.Set;
+import java.util.TreeSet;
 
 /**
  * Created with IntelliJ IDEA.
@@ -47,6 +48,7 @@ public class WorkBook {
 
     @OneToMany(mappedBy="workBook", cascade = CascadeType.ALL)
     @JsonManagedReference
+    @OrderBy("id")
     private Set<WorkPlace> workPlaces;
 
     public Set<WorkPlace> getWorkPlaces() {

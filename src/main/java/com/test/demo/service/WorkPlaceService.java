@@ -15,7 +15,7 @@ import java.util.Set;
 public interface WorkPlaceService {
     void saveWorkPlace(WorkPlace workPlace);
     void deleteWorkPlace(Integer id);
-    void updateIsCurrent(Integer workbook_id);
+    void updateIsCurrent(WorkBook workbook);
     void test();
 
     WorkPlace getWorkPlaceById(Integer id);

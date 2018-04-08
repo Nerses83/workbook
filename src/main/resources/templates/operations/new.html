@@ -10,20 +10,20 @@
         <form class="form-horizontal" th:action="@{/save}" name="input_form" id="input_form"
               method="post" role="form">
             <div class="form-group">
-                <input type="text" class="form-control" id="firstName" th:name="firstName" placeholder="Enter first name." maxlength="100"/>
+                <input type="text" class="form-control" id="firstName" th:name="firstName" placeholder="Enter first name." maxlength="100" th:required="required"/>
             </div>
             <div class="form-group">
-                <input type="text" class="form-control" id="lastName" th:name="lastName" placeholder="Enter last name." maxlength="100"/>
+                <input type="text" class="form-control" id="lastName" th:name="lastName" placeholder="Enter last name." maxlength="100" th:required="required" />
             </div>
             <div class="form-group">
-                <input type="text" class="form-control" id="age" th:name="age" placeholder="Enter age." maxlength="100"/>
+                <input type="number" class="form-control" id="age" th:name="age" placeholder="Enter age." maxlength="100" th:required="required"/>
             </div>
             <div class="form-group">
                 <input type="text" class="form-control" id="passportNumber" th:name="passportNumber" placeholder="Enter Passport Number." maxlength="100"/>
             </div>
 
             <div class="form-group">
-                <input type="date" class="form-control" id="dateOfBirth" th:name="dateOfBirth" placeholder="Enter date Of Birth." maxlength="100"/>
+                <input type="date" class="form-control" id="dateOfBirth" th:name="dateOfBirth" placeholder="Enter date Of Birth." maxlength="100" value="2000-01-01"/>
             </div>
 
 

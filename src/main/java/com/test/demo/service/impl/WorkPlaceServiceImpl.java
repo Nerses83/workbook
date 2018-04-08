@@ -1,5 +1,6 @@
 package com.test.demo.service.impl;
 
+import com.test.demo.entity.WorkBook;
 import com.test.demo.entity.WorkPlace;
 import com.test.demo.repository.WorkPlaceRepository;
 import com.test.demo.service.WorkPlaceService;
@@ -36,8 +37,8 @@ public class WorkPlaceServiceImpl implements WorkPlaceService {
     }
 
     @Override
-    public void updateIsCurrent(Integer workbook_id) {
-//        workPlaceRepository.updateIsCurrent(false, workbook_id);
+    public void updateIsCurrent(WorkBook workbook) {
+//        workPlaceRepository.updateCurrent(workbook, false);
     }
 
     public void test(){

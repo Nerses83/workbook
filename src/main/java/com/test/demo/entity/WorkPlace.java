@@ -1,6 +1,7 @@
 package com.test.demo.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -24,9 +25,11 @@ public class WorkPlace {
     @Column(name = "country")
     String country;
 
+    @DateTimeFormat(pattern = "dd/MM/yyyy")
     @Column(name = "startDate")
     private Date startDate;
 
+    @DateTimeFormat(pattern = "dd/MM/yyyy")
     @Column(name = "endDate")
     private Date endDate;
 
@@ -116,4 +119,8 @@ public class WorkPlace {
         this.isCurrent = isCurrent;
     }
 
+//    @Override
+//    public int compareTo(WorkPlace o) {
+//        return 0;
+//    }
 }

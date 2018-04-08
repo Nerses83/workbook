@@ -8,13 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
-import java.util.HashSet;
 
 @Controller
 public class WorkPlaceController {
@@ -29,7 +25,6 @@ public class WorkPlaceController {
     public String getWorkPlace(@PathVariable Integer id, Model model) {
 
         WorkBook workBook = workBookService.getWorkBookById(id);
-        model.addAttribute("workplace", workBook.getWorkPlaces());
         model.addAttribute("workBook", workBook);
         return "workPlace";
     }
@@ -42,21 +37,14 @@ public class WorkPlaceController {
         return "workplace/new";
     }
 
-    @GetMapping("/workplace/delete/{id}/{book_id}")
-    public String delete(@PathVariable Integer id, @PathVariable Integer book_id, Model model) {
-
-        workPlaceService.deleteWorkPlace(id);
-//        return "redirect:/workbook/"+book_id;
-        return String.format("redirect:/workbook/%s", book_id);
-    }
-
-
     @PostMapping("/workplace/add/")
     public String save(@RequestParam Integer id, String company, String country,
                        @RequestParam(value="startDate") @DateTimeFormat(pattern="yyyy-MM-dd") Date startDate,
-                       @RequestParam(value="endDate")   @DateTimeFormat(pattern="yyyy-MM-dd") Date endDate,
+                       @RequestParam(value="endDate")   @DateTimeFormat(pattern="yyyy-MM-dd") Date endDate ,
                        boolean current ) {
 
+        if(startDate == null) startDate = new Date();
+        if(endDate == null) endDate = new Date();
 
         WorkBook workBook = workBookService.getWorkBookById(id);
         if(current) {
@@ -64,32 +52,40 @@ public class WorkPlaceController {
                 if(workPlace.isCurrent()) {
                     workPlace.setCurrent(false);
                     workPlaceService.saveWorkPlace(workPlace);
+                    break;
                 }
             }
         }
         WorkPlace workPlace = new WorkPlace(company, country, startDate, endDate, current);
         workPlace.setWorkBook(workBook);
         workPlaceService.saveWorkPlace(workPlace);
-//        return "redirect:/workbook/"+id;
         return String.format("redirect:/workbook/%s", id);
     }
 
 
-    @GetMapping("/workplace/edit/{id}/{book_id}")
-    public String edit(@PathVariable Integer id, @PathVariable Integer book_id, Model model) {
-        WorkPlace workPlace = workPlaceService.getWorkPlaceById(id);
-        model.addAttribute("workPlace", workPlace);
-//        return "workplace/edit";
-        return "workplace/edit";
+    @GetMapping("/workplace/delete/{id}/{book_id}")
+    public String delete(@PathVariable Integer id, @PathVariable Integer book_id, Model model) {
+
+        workPlaceService.deleteWorkPlace(id);
+        return String.format("redirect:/workbook/%s", book_id);
     }
 
 
+
+
+
+    @GetMapping("/workplace/edit/{id}")
+    public String edit(@PathVariable Integer id, Model model) {
+        WorkPlace workPlace = workPlaceService.getWorkPlaceById(id);
+        model.addAttribute("workPlace", workPlace);
+        return "workplace/edit";
+    }
+
     @PostMapping("/workplace/update")
     public String update(@RequestParam String company, @RequestParam String country,
-                           @RequestParam(value="startDate") @DateTimeFormat(pattern="yyyy-MM-dd") Date startDate,
-                           @RequestParam(value="endDate")   @DateTimeFormat(pattern="yyyy-MM-dd") Date endDate,
-                           boolean current, int id, int book_id
-    ) {
+                         @RequestParam(value="startDate") @DateTimeFormat(pattern="yyyy-MM-dd") Date startDate,
+                         @RequestParam(value="endDate")   @DateTimeFormat(pattern="yyyy-MM-dd") Date endDate,
+                         boolean current, int id, int book_id) {
 
         WorkPlace workPlace = new WorkPlace(company, country, startDate, endDate, current);
         workPlace.setId(id);
@@ -101,11 +97,6 @@ public class WorkPlaceController {
         } else {
             workPlaceService.saveWorkPlace(workPlace);
         }
-
-
-
-
-
         return String.format("redirect:/workbook/%s", book_id);
     }
 }

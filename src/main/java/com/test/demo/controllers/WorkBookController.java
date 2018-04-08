@@ -44,9 +44,7 @@ public class WorkBookController {
 
     @PostMapping("/save")
     public String saveWorkBook(@RequestParam String firstName, @RequestParam String lastName, @RequestParam int age, @RequestParam String passportNumber,
-                           @RequestParam(value="dateOfBirth")     @DateTimeFormat(pattern="yyyy-MM-dd") Date dateOfBirth
-//                           @RequestParam String dateOfBirth
-    ) {
+                           @RequestParam(value="dateOfBirth")     @DateTimeFormat(pattern="yyyy-MM-dd") Date dateOfBirth) throws NumberFormatException {
 
 
         WorkBook workBook = new WorkBook(firstName, lastName, dateOfBirth, age, passportNumber);

@@ -1,5 +1,6 @@
 package com.test.demo.repository;
 
+import com.test.demo.entity.WorkBook;
 import com.test.demo.entity.WorkPlace;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
@@ -26,11 +27,11 @@ public interface WorkPlaceRepository extends JpaRepository<WorkPlace, Integer> {
 //    @Query("Update WorkPlace t SET t.current=:isCurrent WHERE t.id=:id")
 //    int updateIsCurrent(@Param("isCurrent") boolean isCurrent, @Param("id") Integer id);
 
-
+//
 //    @Transactional
 //    @Modifying
-//    @Query("UPDATE WorkPlace c SET c.country = :country WHERE c.id = :id")
-//    int updatcountry(@Param("id") int id, @Param("country") String country);
-
+//    @Query("UPDATE WorkPlace c SET c.current = :current WHERE c.workBook = :workBook")
+//    int updateCurrent(@Param("workBook") WorkBook workBook, @Param("current") boolean current);
+//
 
 }
