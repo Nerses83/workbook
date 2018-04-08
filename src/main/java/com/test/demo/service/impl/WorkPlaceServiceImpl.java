@@ -6,6 +6,8 @@ import com.test.demo.service.WorkPlaceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Set;
+
 /**
  * Created with IntelliJ IDEA.
  * User: Nerses
@@ -17,6 +19,10 @@ import org.springframework.stereotype.Service;
 public class WorkPlaceServiceImpl implements WorkPlaceService {
 
     @Autowired
+    public void setWorkPlaceRepository(WorkPlaceRepository workPlaceRepository) {
+        this.workPlaceRepository = workPlaceRepository;
+    }
+
     WorkPlaceRepository workPlaceRepository;
 
     @Override
@@ -36,5 +42,22 @@ public class WorkPlaceServiceImpl implements WorkPlaceService {
 
     public void test(){
 //        workPlaceRepository.updatcountry(5, "kuxniq");
+    }
+
+    @Override
+    public WorkPlace getWorkPlaceById(Integer id) {
+        return workPlaceRepository.findOne(id);
+    }
+
+    @Override
+    public void updateWorkPlace(Set<WorkPlace> workPlaces, WorkPlace workPlace) {
+        for (WorkPlace place  : workPlaces) {
+            if(place.isCurrent()) {
+                place.setCurrent(false);
+                workPlaceRepository.save(place);
+                break;
+            }
+        }
+        workPlaceRepository.save(workPlace);
     }
 }

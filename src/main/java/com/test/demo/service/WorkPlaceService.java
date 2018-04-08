@@ -1,6 +1,9 @@
 package com.test.demo.service;
 
+import com.test.demo.entity.WorkBook;
 import com.test.demo.entity.WorkPlace;
+
+import java.util.Set;
 
 /**
  * Created with IntelliJ IDEA.
@@ -14,4 +17,7 @@ public interface WorkPlaceService {
     void deleteWorkPlace(Integer id);
     void updateIsCurrent(Integer workbook_id);
     void test();
+
+    WorkPlace getWorkPlaceById(Integer id);
+    void updateWorkPlace(Set<WorkPlace> workPlaces, WorkPlace workPlace);
 }

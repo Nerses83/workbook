@@ -7,26 +7,45 @@
 <div class="container">
     <div th:replace="fragments/header :: header"></div>
     <div class="container">
-        <form class="form-horizontal" th:object="${workBook}" th:action="@{/update}" name="edit_form" id="edit_form"
+        <p th:text="${workPlace.workBook.firstName}"></p>
+        <p th:text="${workPlace.workBook.lastName}"></p>
+        <form class="form-horizontal" th:object="${workPlace}" th:action="@{/workplace/update}" name="edit_form" id="edit_form"
               method="post" role="form">
             <div class="form-group">
                 <input type="hidden" id="id" th:name="id" th:value="*{id}"/>
             </div>
             <div class="form-group">
-                <input type="text" class="form-control" id="firstName" th:name="firstName" th:value="*{firstName}" maxlength="100"/>
+                <input type="hidden" id="book_id" th:name="book_id" th:value="*{workBook.id}"/>
             </div>
             <div class="form-group">
-                <input type="text" class="form-control" id="lastName" th:name="lastName" th:value="*{lastName}" maxlength="100"/>
+                <input type="text" class="form-control" id="company" th:name="company" th:value="*{company}" maxlength="100"/>
             </div>
             <div class="form-group">
-                <input type="text" class="form-control" id="age" th:name="age" th:value="*{age}" maxlength="100"/>
+                <input type="text" class="form-control" id="country" th:name="country" th:value="*{country}" maxlength="100"/>
             </div>
             <div class="form-group">
-                <input type="text" class="form-control" id="passportNumber" th:name="passportNumber" th:value="*{passportNumber}" maxlength="100"/>
+                <input type="date" class="form-control" id="startDate" th:name="startDate" th:value="*{#dates.format(startDate, 'yyyy-MM-dd')}" maxlength="100"/>
             </div>
             <div class="form-group">
-                <input type="date" th:value="*{dateOfBirth}" class="form-control" id="dateOfBirth" th:name="dateOfBirth" placeholder="Enter date Of Birth." maxlength="100"/>
+                <input type="date" class="form-control" id="endDate" th:name="endDate" th:value="*{#dates.format(endDate, 'yyyy-MM-dd')}" maxlength="100"/>
             </div>
+
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" id="current" th:name="current" th:checked="*{current}" />
+                <label class="form-check-label" for="done">
+                    Current?
+                </label>
+            </div>
+            <!--<div class="form-check">-->
+                <!--<input class="form-check-input" type="checkbox" id="current" th:name="current" />-->
+                <!--<label class="form-check-label" for="done">-->
+                    <!--Current?-->
+                <!--</label>-->
+            <!--</div>-->
+
+
+
+
 
             <button type="submit" class="btn btn-primary">Submit</button>
         </form>

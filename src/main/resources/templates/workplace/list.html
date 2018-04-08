@@ -44,8 +44,8 @@
             <!--<td th:text="${workPlaces.current}" style="text-align: center">#</td>-->
 
 
-            <td style="text-align: center"><a th:href="@{'/workplace/edit/{id}'(id=${workPlaces.id})}"><i class="fa fa-edit" style="font-size:20px"></i></a></td>
-            <!--<td style="text-align: center"><a th:href="@{'/workplace/delete/{id}'(id=${workPlaces.id})}"   ><i class="fa fa-trash" style="font-size:20px"></i></a></td>-->
+            <!--<td style="text-align: center"><a th:href="@{'/workplace/edit/{id}'(id=${workPlaces.id})}"><i class="fa fa-edit" style="font-size:20px"></i></a></td>-->
+            <td style="text-align: center"><a th:href="@{'/workplace/edit/' + ${workPlaces.id} + '/'+${workBook.id}}"><i class="fa fa-edit" style="font-size:20px"></i></a></td>
             <td style="text-align: center"><a th:href="@{'/workplace/delete/' + ${workPlaces.id} + '/'+${workBook.id}}"><i class="fa fa-trash" style="font-size:20px"></i></a></td>
 
         </tr>

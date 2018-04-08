@@ -93,6 +93,10 @@ public class WorkPlace {
         this.workBook = workBook;
     }
 
+    public void setId(int id) {
+        this.id = id;
+    }
+
     public boolean isCurrent() {
         return isCurrent;
     }
@@ -111,4 +115,5 @@ public class WorkPlace {
         this.endDate = endDate;
         this.isCurrent = isCurrent;
     }
+
 }

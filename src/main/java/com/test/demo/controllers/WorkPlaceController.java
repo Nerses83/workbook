@@ -13,11 +13,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.List;
+import java.util.HashSet;
 
 @Controller
 public class WorkPlaceController {
@@ -77,4 +74,38 @@ public class WorkPlaceController {
         return String.format("redirect:/workbook/%s", id);
     }
 
+
+    @GetMapping("/workplace/edit/{id}/{book_id}")
+    public String edit(@PathVariable Integer id, @PathVariable Integer book_id, Model model) {
+        WorkPlace workPlace = workPlaceService.getWorkPlaceById(id);
+        model.addAttribute("workPlace", workPlace);
+//        return "workplace/edit";
+        return "workplace/edit";
+    }
+
+
+    @PostMapping("/workplace/update")
+    public String update(@RequestParam String company, @RequestParam String country,
+                           @RequestParam(value="startDate") @DateTimeFormat(pattern="yyyy-MM-dd") Date startDate,
+                           @RequestParam(value="endDate")   @DateTimeFormat(pattern="yyyy-MM-dd") Date endDate,
+                           boolean current, int id, int book_id
+    ) {
+
+        WorkPlace workPlace = new WorkPlace(company, country, startDate, endDate, current);
+        workPlace.setId(id);
+        WorkBook workBook = workBookService.getWorkBookById(book_id);
+        workPlace.setWorkBook(workBook);
+
+        if(current){
+            workPlaceService.updateWorkPlace(workBook.getWorkPlaces(), workPlace);
+        } else {
+            workPlaceService.saveWorkPlace(workPlace);
+        }
+
+
+
+
+
+        return String.format("redirect:/workbook/%s", book_id);
+    }
 }

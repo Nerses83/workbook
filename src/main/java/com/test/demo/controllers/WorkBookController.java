@@ -11,9 +11,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -50,8 +47,7 @@ public class WorkBookController {
                            @RequestParam(value="dateOfBirth")     @DateTimeFormat(pattern="yyyy-MM-dd") Date dateOfBirth
 //                           @RequestParam String dateOfBirth
     ) {
-//        Date date = convertStringToDate(dateOfBirth);
-//        int h =0;
+
 
         WorkBook workBook = new WorkBook(firstName, lastName, dateOfBirth, age, passportNumber);
         workBookService.saveWorkBook(workBook);
