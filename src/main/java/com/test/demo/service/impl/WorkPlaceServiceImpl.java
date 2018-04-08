@@ -52,11 +52,14 @@ public class WorkPlaceServiceImpl implements WorkPlaceService {
 
     @Override
     public void updateWorkPlace(Set<WorkPlace> workPlaces, WorkPlace workPlace) {
-        for (WorkPlace place  : workPlaces) {
-            if(place.isCurrent()) {
-                place.setCurrent(false);
-                workPlaceRepository.save(place);
-                break;
+        if(workPlace.isCurrent()) {
+//            workPlace.setEndDate(null);
+            for (WorkPlace place  : workPlaces) {
+                if(place.isCurrent()) {
+                    place.setCurrent(false);
+                    workPlaceRepository.save(place);
+                    break;
+                }
             }
         }
         workPlaceRepository.save(workPlace);

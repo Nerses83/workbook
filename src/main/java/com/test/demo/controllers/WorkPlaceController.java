@@ -2,10 +2,13 @@ package com.test.demo.controllers;
 
 import com.test.demo.entity.WorkBook;
 import com.test.demo.entity.WorkPlace;
+import com.test.demo.exceptions.WorkPlaceNotFoundException;
 import com.test.demo.service.WorkBookService;
 import com.test.demo.service.WorkPlaceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -47,18 +50,19 @@ public class WorkPlaceController {
         if(endDate == null) endDate = new Date();
 
         WorkBook workBook = workBookService.getWorkBookById(id);
-        if(current) {
-            for (WorkPlace workPlace : workBook.getWorkPlaces()) {
-                if(workPlace.isCurrent()) {
-                    workPlace.setCurrent(false);
-                    workPlaceService.saveWorkPlace(workPlace);
-                    break;
-                }
-            }
-        }
+//        if(current) {
+//            for (WorkPlace workPlace : workBook.getWorkPlaces()) {
+//                if(workPlace.isCurrent()) {
+//                    workPlace.setCurrent(false);
+//                    workPlaceService.saveWorkPlace(workPlace);
+//                    break;
+//                }
+//            }
+//        }
         WorkPlace workPlace = new WorkPlace(company, country, startDate, endDate, current);
         workPlace.setWorkBook(workBook);
-        workPlaceService.saveWorkPlace(workPlace);
+//        workPlaceService.saveWorkPlace(workPlace);
+        workPlaceService.updateWorkPlace(workBook.getWorkPlaces(), workPlace);
         return String.format("redirect:/workbook/%s", id);
     }
 
@@ -75,8 +79,11 @@ public class WorkPlaceController {
 
 
     @GetMapping("/workplace/edit/{id}")
-    public String edit(@PathVariable Integer id, Model model) {
+    public String edit(@PathVariable Integer id, Model model) throws WorkPlaceNotFoundException {
         WorkPlace workPlace = workPlaceService.getWorkPlaceById(id);
+        if(workPlace == null) {
+            throw new WorkPlaceNotFoundException();
+        }
         model.addAttribute("workPlace", workPlace);
         return "workplace/edit";
     }
@@ -92,11 +99,14 @@ public class WorkPlaceController {
         WorkBook workBook = workBookService.getWorkBookById(book_id);
         workPlace.setWorkBook(workBook);
 
-        if(current){
-            workPlaceService.updateWorkPlace(workBook.getWorkPlaces(), workPlace);
-        } else {
-            workPlaceService.saveWorkPlace(workPlace);
-        }
+
+        workPlaceService.updateWorkPlace(workBook.getWorkPlaces(), workPlace);
+
         return String.format("redirect:/workbook/%s", book_id);
     }
+
+//    @ExceptionHandler(WorkPlaceNotFoundException.class)
+//    public void handleMaxAllowedTablesAssignedException() {
+////        return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+//    }
 }

@@ -42,7 +42,8 @@
             <td th:text="${workPlaces.company}" style="text-align: center">#</td>
             <td th:text="${workPlaces.country}" style="text-align: center">#</td>
             <td th:text="${#dates.format(workPlaces.startDate, 'dd MMM yyyy')}" style="text-align: center">Date</td>
-            <td th:text="${#dates.format(workPlaces.endDate, 'dd MMM yyyy')}" style="text-align: center">Date</td>
+            <td th:if="${workPlaces.endDate != null}" th:text="${#dates.format(workPlaces.endDate, 'dd MMM yyyy')}" style="text-align: center">Date</td>
+            <td th:unless="${workPlaces.endDate != null}" th:text="${'~'}" style="text-align: center">Date</td>
 
             <!--<td th:text="${workPlaces.startDate}" style="text-align: center">#</td>-->
             <!--<td th:text="${workPlaces.endDate}" style="text-align: center">#</td>-->
