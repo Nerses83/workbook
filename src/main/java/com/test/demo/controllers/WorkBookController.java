@@ -39,14 +39,6 @@ public class WorkBookController {
     }
 
 
-//    @GetMapping("/add")
-//    public String add() {
-//        WorkBook workBook = new WorkBook("nn", "aa", new Date(), 24, "AE 154121");
-//        workBookService.saveWorkBook(workBook);
-//        List<WorkBook> workBookList = workBookService.getAllWorkerBook();
-//        return "index";
-//    }
-
     @GetMapping("/add")
     public String newWorkBook() {
         return "operations/new";
@@ -54,11 +46,14 @@ public class WorkBookController {
 
 
     @PostMapping("/save")
-    public String saveNote(@RequestParam String firstName, @RequestParam String lastName, @RequestParam int age, @RequestParam String passportNumber, @RequestParam String dateOfBirth) {
-        Date date = convertStringToDate(dateOfBirth);
-        int h =0;
+    public String saveWorkBook(@RequestParam String firstName, @RequestParam String lastName, @RequestParam int age, @RequestParam String passportNumber,
+                           @RequestParam(value="dateOfBirth")     @DateTimeFormat(pattern="yyyy-MM-dd") Date dateOfBirth
+//                           @RequestParam String dateOfBirth
+    ) {
+//        Date date = convertStringToDate(dateOfBirth);
+//        int h =0;
 
-        WorkBook workBook = new WorkBook(firstName, lastName, date, age, passportNumber);
+        WorkBook workBook = new WorkBook(firstName, lastName, dateOfBirth, age, passportNumber);
         workBookService.saveWorkBook(workBook);
         return "redirect:/";
     }
@@ -72,8 +67,9 @@ public class WorkBookController {
     }
 
     @PostMapping("/update")
-    public String saveNote(@RequestParam Integer id, @RequestParam String firstName, @RequestParam String lastName, @RequestParam int age, @RequestParam String passportNumber, @RequestParam String dateOfBirth) {
-        WorkBook workBook = new WorkBook(firstName, lastName, convertStringToDate(dateOfBirth), age, passportNumber);
+    public String updateWorkBook(@RequestParam Integer id, @RequestParam String firstName, @RequestParam String lastName, @RequestParam int age, @RequestParam String passportNumber,
+                                 @RequestParam(value="dateOfBirth")     @DateTimeFormat(pattern="yyyy-MM-dd") Date dateOfBirth) {
+        WorkBook workBook = new WorkBook(firstName, lastName, dateOfBirth, age, passportNumber);
 
         workBook.setId(id);
         workBookService.updateWorkBook(workBook);
@@ -87,15 +83,5 @@ public class WorkBookController {
     }
 
 
-    public Date convertStringToDate(String dateString)
-    {
-        DateFormat df = new SimpleDateFormat("yyyy-mm-dd");
-        Date d1 = null;
-        try {
-            d1 = df.parse(dateString);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        return d1;
-    }
+
 }

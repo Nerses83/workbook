@@ -5,6 +5,7 @@ import com.test.demo.entity.WorkPlace;
 import com.test.demo.service.WorkBookService;
 import com.test.demo.service.WorkPlaceService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -48,43 +49,32 @@ public class WorkPlaceController {
     public String delete(@PathVariable Integer id, @PathVariable Integer book_id, Model model) {
 
         workPlaceService.deleteWorkPlace(id);
-        return "redirect:/workbook/"+book_id;
-        //return String.format("redirect:/workbook/%s", book_id);
+//        return "redirect:/workbook/"+book_id;
+        return String.format("redirect:/workbook/%s", book_id);
     }
 
 
     @PostMapping("/workplace/add/")
-    public String save(@RequestParam Integer id, String company, String country, String startDate, String endDate, boolean current ) {
+    public String save(@RequestParam Integer id, String company, String country,
+                       @RequestParam(value="startDate") @DateTimeFormat(pattern="yyyy-MM-dd") Date startDate,
+                       @RequestParam(value="endDate")   @DateTimeFormat(pattern="yyyy-MM-dd") Date endDate,
+                       boolean current ) {
 
 
         WorkBook workBook = workBookService.getWorkBookById(id);
-        for (WorkPlace workPlace : workBook.getWorkPlaces()) {
-            if(workPlace.isCurrent()) {
-                workPlace.setCurrent(false);
-                workPlaceService.saveWorkPlace(workPlace);
+        if(current) {
+            for (WorkPlace workPlace : workBook.getWorkPlaces()) {
+                if(workPlace.isCurrent()) {
+                    workPlace.setCurrent(false);
+                    workPlaceService.saveWorkPlace(workPlace);
+                }
             }
         }
-
-
-
-        WorkPlace workPlace = new WorkPlace(company, country, convertStringToDate(startDate), convertStringToDate(endDate), current);
+        WorkPlace workPlace = new WorkPlace(company, country, startDate, endDate, current);
         workPlace.setWorkBook(workBook);
-//        workPlaceService.updateIsCurrent(id);
-//        workPlaceService.test();
         workPlaceService.saveWorkPlace(workPlace);
-
-        return "redirect:/workbook/"+id;
+//        return "redirect:/workbook/"+id;
+        return String.format("redirect:/workbook/%s", id);
     }
 
-    public Date convertStringToDate(String dateString)
-    {
-        DateFormat df = new SimpleDateFormat("yyyy-mm-dd");
-        Date d1 = null;
-        try {
-            d1 = df.parse(dateString);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        return d1;
-    }
 }

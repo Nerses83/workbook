@@ -34,7 +34,8 @@ public class WorkBook {
     @Column(name = "lastName")
     String lastName;
 
-    @DateTimeFormat(pattern="YYYY-mm-dd")
+//    @DateTimeFormat(pattern="YYYY-mm-dd")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     @Column(name = "dateOfBirth")
     private Date dateOfBirth;
 

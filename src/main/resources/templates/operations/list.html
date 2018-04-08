@@ -24,8 +24,9 @@
             <td th:text="${workBook.id}" style="text-align: center">#</td>
             <td th:text="${workBook.firstName}" style="text-align: center">#</td>
             <td th:text="${workBook.lastName}" style="text-align: center">#</td>
-            <td th:text="${workBook.dateOfBirth}" style="text-align: center">#</td>
+            <!--<td th:text="${workBook.dateOfBirth}" style="text-align: center">#</td>-->
             <!--<td th:text="${#dates.format(workBook.dateOfBirth, 'dd MMM yyyy')}" style="text-align: center">Date</td>-->
+            <td th:text="${#dates.format(workBook.dateOfBirth, 'yyyy-MM-dd')}" style="text-align: center">Date</td>
             <td th:text="${workBook.age}" style="text-align: center">#</td>
             <td th:text="${workBook.passportNumber}" style="text-align: center">#</td>
 
